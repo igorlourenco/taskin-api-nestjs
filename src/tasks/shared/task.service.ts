@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from './task';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Task } from './task';
 
 @Injectable()
 export class TaskService {
