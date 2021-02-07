@@ -7,8 +7,8 @@ import { Task } from './task';
 export class TaskService {
   constructor(@InjectModel('Task') private readonly tasks: Model<Task>) {}
 
-  async getAll() {
-    return await this.tasks.find().exec();
+  async getAll(userId: string) {
+    return await this.tasks.find({ userId }).exec();
   }
 
   async getById(id: string) {

@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { TaskService } from './shared/task.service';
 import { Task } from './shared/task';
@@ -18,8 +19,9 @@ export class TasksController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getAll(): Promise<Task[]> {
-    return this.taskService.getAll();
+  async getAll(@Request() request: any): Promise<Task[]> {
+    const userId = request.user.id;
+    return this.taskService.getAll(userId);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -30,7 +32,8 @@ export class TasksController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() task: Task): Promise<Task> {
+  async create(@Body() task: Task, @Request() request: any): Promise<Task> {
+    task.userId = request.user.id;
     return this.taskService.create(task);
   }
 
